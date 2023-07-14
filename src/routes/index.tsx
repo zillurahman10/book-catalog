@@ -7,11 +7,16 @@ import Signup from "../pages/CreateAccount/Signup";
 import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/CreateAccount/Login";
 import AllBooks from "../pages/AllBooks/AllBooks";
+import BookDetail from "../pages/BookDetail/BookDetail";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/books/:id",
+    element: <BookDetail />,
   },
   {
     path: "/allbooks",

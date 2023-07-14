@@ -1,12 +1,15 @@
 import React from "react";
 import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import Header from "../../Shared/Header";
+import { Link } from "react-router-dom";
 
 const AllBooks = () => {
   const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <span className="loading loading-dots loading-lg text-center"></span>
+    );
   }
 
   if (isError) {
@@ -46,7 +49,9 @@ const AllBooks = () => {
                     {info.publicationDate}
                   </p>
                   <div className="card-actions justify-center">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <Link to={`/books/${info._id}`} className="btn btn-primary">
+                      Details
+                    </Link>
                   </div>
                 </div>
               </div>
