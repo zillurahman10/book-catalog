@@ -4,15 +4,20 @@ import App from "../App";
 import Home from "../pages/Home/Home";
 import Header from "../Shared/Header";
 import Signup from "../pages/CreateAccount/Signup";
+import NotFound from "../pages/NotFound/NotFound";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: <Home />,
   },
   {
     path: "/signup",
-    element: <Signup></Signup>,
+    element: <Signup />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

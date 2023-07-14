@@ -1,12 +1,16 @@
 import React from "react";
 import registerPhoto from "../../assets/I Love Reading Coloring Page.png";
+import useCreateUserWithEmailAndPassword from "react-firebase-hooks";
 
 const Signup = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
   const handleUserRegistration = (e) => {
     // code to register user
-    e.target.preventDefault();
+    e.preventDefault();
     const email = e.target.email.value;
-    console.log(email);
+    const password = e.target.password.value;
   };
   return (
     <div className="hero min-h-screen">
