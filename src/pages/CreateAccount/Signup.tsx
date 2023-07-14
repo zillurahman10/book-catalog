@@ -1,17 +1,27 @@
 import React from "react";
 import registerPhoto from "../../assets/I Love Reading Coloring Page.png";
-import useCreateUserWithEmailAndPassword from "react-firebase-hooks";
+import auth from "../../../firebase.init";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 
 const Signup = () => {
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
+  const [signInWithGoogle] = useSignInWithGoogle(auth);
 
   const handleUserRegistration = (e) => {
     // code to register user
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    createUserWithEmailAndPassword(email, password);
   };
+
+  // console.log(gUser);
+  console.log(user);
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row">
@@ -47,6 +57,13 @@ const Signup = () => {
                 value="Register"
               />
             </div>
+            <p className="text-center">---------- or ----------</p>
+            <button
+              onClick={() => signInWithGoogle()}
+              className="btn btn-accent"
+            >
+              SIGN IN WITH GOOGLE
+            </button>
           </form>
         </div>
       </div>
