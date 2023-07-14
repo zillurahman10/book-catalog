@@ -2,13 +2,13 @@ import React from "react";
 import registerPhoto from "../../assets/I Love Reading Coloring Page.png";
 import auth from "../../../firebase.init";
 import {
-  useCreateUserWithEmailAndPassword,
+  useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 
 const Login = () => {
-  const [createUserWithEmailAndPassword, user] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
   const handleUserLogin = (e) => {
@@ -17,7 +17,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    createUserWithEmailAndPassword(email, password);
+    signInWithEmailAndPassword(email, password);
   };
 
   // console.log(gUser);

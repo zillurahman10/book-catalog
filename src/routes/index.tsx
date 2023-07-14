@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home";
 import Header from "../Shared/Header";
 import Signup from "../pages/CreateAccount/Signup";
 import NotFound from "../pages/NotFound/NotFound";
+import Login from "../pages/CreateAccount/Login";
 
 const routes = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const routes = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "*",
