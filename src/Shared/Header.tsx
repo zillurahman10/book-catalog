@@ -1,13 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
+
   const menuItems = (
     <>
       <li>
-        <a>Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a>All Books</a>
+        <Link to="/allbooks">All Books</Link>
       </li>
       <li>
         <a>Item 1</a>
@@ -15,7 +21,7 @@ const Header = () => {
     </>
   );
   return (
-    <div>
+    <div className="ml-12 mr-12">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -49,11 +55,15 @@ const Header = () => {
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{menuItems}</ul>
           </div>
-          <div className="avatar w-[45px]">
-            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
-          </div>
+          {user ? (
+            <button onClick={() => signOut()} className="btn btn-neutral">
+              LogOut
+            </button>
+          ) : (
+            <Link className="btn btn-neutral" to="/login">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -6,11 +6,16 @@ import Header from "../Shared/Header";
 import Signup from "../pages/CreateAccount/Signup";
 import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/CreateAccount/Login";
+import AllBooks from "../pages/AllBooks/AllBooks";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/allbooks",
+    element: <AllBooks />,
   },
   {
     path: "/signup",
