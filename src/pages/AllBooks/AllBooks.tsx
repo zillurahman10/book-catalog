@@ -17,6 +17,15 @@ const AllBooks = () => {
     <>
       <Header></Header>
       <h1 className="text-2xl text-center font-bold">Read more and more...</h1>
+      <form className="flex justify-center m-8">
+        <div className="join">
+          <input
+            className="input input-bordered join-item"
+            placeholder="Search here"
+          />
+          <button className="btn join-item rounded-r-full">Search</button>
+        </div>
+      </form>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 m-8">
         {data &&
           data.map((info) => (
