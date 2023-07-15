@@ -1,19 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface IBook {
+  email: string;
   title: string;
   author: string;
   genre: string;
   publicationDate: string;
+  photoURL: string;
 }
 const initialState = {
   books: [] as Array<IBook>,
 };
 
-const productSlice = createSlice({
+const bookSlice = createSlice({
   name: "book",
   initialState,
-  reducers: {},
+  reducers: {
+    searchBook: (state, action: PayloadAction<Array<IBook>>) => {
+      state.books = action.payload;
+    },
+  },
 });
 
-export default productSlice.reducer;
+export const { searchBook } = bookSlice.actions;
+
+export default bookSlice.reducer;

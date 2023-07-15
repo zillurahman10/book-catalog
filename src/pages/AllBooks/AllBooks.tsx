@@ -2,9 +2,23 @@ import React from "react";
 import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import Header from "../../Shared/Header";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useDispatch } from "react-redux";
+import { searchBook } from "../../redux/books/booksSlice";
 
 const AllBooks = () => {
   const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
+  const dispatch = useAppDispatch();
+  const { books } = useAppSelector((state) => state.book);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.searchTerm.value;
+    const searchResults = data.filter((info) =>
+      info.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    dispatch(searchBook(books));
+  };
 
   if (isLoading) {
     return (
@@ -20,13 +34,18 @@ const AllBooks = () => {
     <>
       <Header></Header>
       <h1 className="text-2xl text-center font-bold">Read more and more...</h1>
-      <form className="flex justify-center m-8">
+      <form onSubmit={handleSearch} className="flex justify-center m-8">
         <div className="join">
           <input
             className="input input-bordered join-item"
+            name="searchTerm"
             placeholder="Search here"
           />
-          <button className="btn join-item rounded-r-full">Search</button>
+          <input
+            className="btn join-item rounded-r-full"
+            type="submit"
+            value="Search"
+          />
         </div>
       </form>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 m-8">

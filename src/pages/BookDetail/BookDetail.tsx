@@ -14,7 +14,7 @@ const BookDetail = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const { data, isLoading, isError } = useGetSingleBooksQuery(id);
-  const {} = useDeleteBookMutation({ id: id });
+  const {} = useDeleteBookMutation(id!);
 
   console.log(data);
   const reviews = data?.reviews;
@@ -62,10 +62,22 @@ const BookDetail = () => {
                 </>
               ) : (
                 <>
-                  <button className="btn btn-primary mr-5 btn-disabled">
-                    Edit
-                  </button>
-                  <button className="btn btn-error btn-disabled">Delete</button>
+                  <div
+                    className="tooltip"
+                    data-tip="You are not the creator of this book so you cannot edit this book"
+                  >
+                    <button className="btn btn-primary mr-5 btn-disabled">
+                      Edit
+                    </button>
+                  </div>
+                  <div
+                    className="tooltip"
+                    data-tip="You are not the creator of this book so you cannot delete this book"
+                  >
+                    <button className="btn btn-error btn-disabled">
+                      Delete
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -97,8 +109,10 @@ const BookDetail = () => {
                 value="Post"
               />
             </form>
-            {data?.reviews.map((review) => (
-              <h1>{review}</h1>
+            {data?.reviews.map((review, index) => (
+              <h1>
+                {index}. {review}
+              </h1>
             ))}
           </div>
         </div>
