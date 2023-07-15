@@ -1,6 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetSingleBooksQuery } from "../../redux/api/apiSlice";
+import {
+  useDeleteBookMutation,
+  useGetSingleBooksQuery,
+} from "../../redux/api/apiSlice";
 import Comments from "./Comments";
 import Header from "../../Shared/Header";
 import auth from "../../../firebase.init";
@@ -11,6 +14,8 @@ const BookDetail = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const { data, isLoading, isError } = useGetSingleBooksQuery(id);
+  const {} = useDeleteBookMutation({ id: id });
+
   console.log(data);
   const reviews = data?.reviews;
   if (isLoading) {
