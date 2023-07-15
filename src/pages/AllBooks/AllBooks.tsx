@@ -33,25 +33,17 @@ const AllBooks = () => {
         {data &&
           data.map((info) => (
             <>
-              <div className="card w-96 bg-gradient-to-r from-cyan-100 to-blue-100 shadow">
-                <div className="card-body">
-                  <h2 className="card-title">{info.title}</h2>
-                  <p>
-                    <span className="font-bold">Author: </span>
-                    {info.author}
-                  </p>
-                  <p>
-                    <span className="font-bold">Genre: </span>
-                    {info.genre}
-                  </p>
-                  <p>
-                    <span className="font-bold">Publication Date: </span>
-                    {info.publicationDate}
-                  </p>
-                  <div className="card-actions justify-center">
-                    <Link to={`/books/${info._id}`} className="btn btn-primary">
-                      Details
-                    </Link>
+              <div className="card w-96 bg-base-100 shadow-xl">
+                <figure className="px-10 pt-10">
+                  <img src={info?.photoURL} className="rounded-xl" />
+                </figure>
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">{info?.title}</h2>
+                  <p>{info?.author}</p>
+                  <p>{info?.genre}</p>
+                  <p>{info?.publicationDate}</p>
+                  <div className="card-actions">
+                    <button className="btn btn-primary">Buy Now</button>
                   </div>
                 </div>
               </div>
