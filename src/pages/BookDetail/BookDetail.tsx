@@ -16,42 +16,49 @@ const BookDetail = () => {
   return (
     <>
       <Header></Header>
-      <div>
-        <div className="hero">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold">{data.title}</h1>
-              <p className="py-5">
+      <div className="bg-base-200">
+        <div className="hero min-h-screen">
+          <div className="hero-content flex-col lg:flex-row flex justify-between">
+            <img
+              src={data?.photoURL}
+              className="max-w-sm rounded-lg shadow-2xl mr-12"
+            />
+            <div>
+              <h1 className="text-5xl font-bold">{data?.title}</h1>
+              <p className="py-3">
                 <span className="font-bold">Author: </span>
-                {data.author}
+                {data?.author}
               </p>
-              <p className="pb-5">
+              <p className="py-3">
                 <span className="font-bold">Genre: </span>
-                {data.genre}
+                {data?.genre}
               </p>
-              <p className="pb-5">
+              <p className="py-3">
                 <span className="font-bold">Publication Date: </span>
-                {data.publicationDate}
+                {data?.publicationDate}
               </p>
               <button className="btn btn-primary mr-5">Edit</button>
-              <button className="btn btn-accent">Delete</button>
+              <button className="btn btn-error">Delete</button>
             </div>
           </div>
         </div>
-        {/* Reviews Section */}
-        <div className="text-center my-7">
-          <h1 className="text-2xl font-bold mb-5">Let's check out reviews</h1>
-          <form action="">
-            <textarea
-              className="textarea textarea-secondary"
-              placeholder="Your Review"
-            ></textarea>
-            <br />
-            <button className="btn btn-primary">Post</button>
-          </form>
-          {data?.reviews.map((review) => (
-            <h1>{review}</h1>
-          ))}
+
+        <div>
+          {/* Reviews Section */}
+          <div className="text-center my-7">
+            <h1 className="text-2xl font-bold mb-5">Let's check out reviews</h1>
+            <form action="">
+              <textarea
+                className="textarea textarea-secondary"
+                placeholder="Your Review"
+              ></textarea>
+              <br />
+              <button className="btn btn-primary">Post</button>
+            </form>
+            {data?.reviews.map((review) => (
+              <h1>{review}</h1>
+            ))}
+          </div>
         </div>
       </div>
     </>

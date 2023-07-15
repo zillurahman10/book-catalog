@@ -39,17 +39,37 @@ const AllBooks = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">{info?.title}</h2>
-                  <p>{info?.author}</p>
-                  <p>{info?.genre}</p>
-                  <p>{info?.publicationDate}</p>
+                  <p>
+                    <span className="font-bold">Author: </span>
+                    {info?.author}
+                  </p>
+                  <p>
+                    <span className="font-bold">Genre: </span>
+                    {info?.genre}
+                  </p>
+                  <p>
+                    <span className="font-bold">Publication Date: </span>
+                    {info?.publicationDate}
+                  </p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <Link
+                      to={`/books/${info?._id}`}
+                      className="btn btn-primary"
+                    >
+                      Details
+                    </Link>
                   </div>
                 </div>
               </div>
             </>
           ))}
       </div>
+      <Link
+        to="/addbook"
+        className="btn btn-accent flex justify-center m-12 mx-auto w-[300px]"
+      >
+        Add Your Own Book
+      </Link>
     </>
   );
 };
