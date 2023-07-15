@@ -5,11 +5,14 @@ import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-  const [signInWithGoogle] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
+  const navigate = useNavigate();
 
   const handleUserLogin = (e) => {
     // code to register user
@@ -20,14 +23,28 @@ const Login = () => {
     signInWithEmailAndPassword(email, password);
   };
 
-  // console.log(gUser);
-  console.log(user);
+  if (loading || googleLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (user || googleUser) {
+    navigate("/");
+  }
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row">
         <img src={registerPhoto} className="max-w-sm rounded-lg shadow-2xl" />
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleUserLogin} className="card-body">
+            {googleError || error ? (
+              <p className="text-red-600 text-center font-bold">
+                Email or password is incorrect
+              </p>
+            ) : null}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -61,6 +78,12 @@ const Login = () => {
               SIGN IN WITH GOOGLE
             </button>
           </form>
+          <p className="text-center mb-5">
+            Don't have a account ?
+            <Link className="underline text-blue-500" to="/signup">
+              Create a account
+            </Link>
+          </p>
         </div>
       </div>
     </div>

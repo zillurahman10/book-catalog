@@ -11,7 +11,7 @@ const AddBook = () => {
 
     const email = e.target.email.value;
     const title = e.target.title.value;
-    const authorName = e.target.author.value;
+    const author = e.target.author.value;
     const genre = e.target.genre.value;
     const publicationDate = e.target.publicationDate.value;
     const reviews = [];
@@ -20,7 +20,7 @@ const AddBook = () => {
     const data = {
       email,
       title,
-      authorName,
+      author,
       genre,
       publicationDate,
       reviews,

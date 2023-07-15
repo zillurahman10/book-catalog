@@ -15,9 +15,6 @@ const Header = () => {
       <li>
         <Link to="/allbooks">All Books</Link>
       </li>
-      <li>
-        <a>Item 1</a>
-      </li>
     </>
   );
   return (
@@ -48,7 +45,7 @@ const Header = () => {
               {menuItems}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a className="btn btn-ghost normal-case text-xl">Book Catalog</a>
         </div>
 
         <div className="navbar-end">

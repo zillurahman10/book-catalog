@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   useDeleteBookMutation,
   useGetSingleBooksQuery,
@@ -22,7 +22,10 @@ const BookDetail = () => {
     return <span className="loading loading-ring loading-lg"></span>;
   }
 
-  const handlePostReview = (e) => {
+  const handlePostReview = (e: {
+    preventDefault: () => void;
+    target: { review: { value: any } };
+  }) => {
     e.preventDefault();
 
     const review = e.target.review.value;
@@ -57,7 +60,12 @@ const BookDetail = () => {
               </p>
               {user?.email === data?.email ? (
                 <>
-                  <button className="btn btn-primary mr-5">Edit</button>
+                  <Link
+                    to={`/editbook/${data?._id}`}
+                    className="btn btn-primary mr-5"
+                  >
+                    Edit
+                  </Link>
                   <button className="btn btn-error">Delete</button>
                 </>
               ) : (
@@ -66,9 +74,12 @@ const BookDetail = () => {
                     className="tooltip"
                     data-tip="You are not the creator of this book so you cannot edit this book"
                   >
-                    <button className="btn btn-primary mr-5 btn-disabled">
+                    <Link
+                      to={`/editbooks/${data?._id}`}
+                      className="btn btn-primary mr-5 btn-disabled"
+                    >
                       Edit
-                    </button>
+                    </Link>
                   </div>
                   <div
                     className="tooltip"

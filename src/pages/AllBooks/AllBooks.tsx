@@ -22,7 +22,9 @@ const AllBooks = () => {
 
   if (isLoading) {
     return (
-      <span className="loading loading-dots loading-lg text-center"></span>
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
     );
   }
 
