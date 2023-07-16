@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  tagTypes: ["reviews"],
   endpoints: (builder) => ({
     getAllBooks: builder.query({
       query: () => "/books",
@@ -30,12 +31,17 @@ export const api = createApi({
         body: data,
       }),
     }),
-    postComment: builder.mutation({
+    postReview: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/comment/${id}`,
+        url: `/reviews/${id}`,
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["reviews"],
+    }),
+    getReview: builder.query({
+      query: (id) => `/reviews/${id}`,
+      providesTags: ["reviews"],
     }),
   }),
 });
@@ -45,4 +51,6 @@ export const {
   useGetSingleBooksQuery,
   useAddBookMutation,
   useDeleteBookMutation,
+  usePostReviewMutation,
+  useGetReviewQuery,
 } = api;

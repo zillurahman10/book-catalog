@@ -2,37 +2,32 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   useDeleteBookMutation,
+  useGetReviewQuery,
   useGetSingleBooksQuery,
 } from "../../redux/api/apiSlice";
 import Comments from "./Comments";
 import Header from "../../Shared/Header";
 import auth from "../../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
+import BookReviews from "./BookReviews";
 
 const BookDetail = () => {
   const { id } = useParams();
   const [user, loading, error] = useAuthState(auth);
 
   const { data, isLoading, isError } = useGetSingleBooksQuery(id);
-  const {} = useDeleteBookMutation(id!);
+
+  // const {} = useDeleteBookMutation(id!);
 
   console.log(data);
   const reviews = data?.reviews;
   if (isLoading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
   }
-
-  const handlePostReview = (e: {
-    preventDefault: () => void;
-    target: { review: { value: any } };
-  }) => {
-    e.preventDefault();
-
-    const review = e.target.review.value;
-
-    data?.reviews.push(review);
-  };
-  console.log(typeof reviews);
 
   return (
     <>
@@ -94,39 +89,7 @@ const BookDetail = () => {
             </div>
           </div>
         </div>
-
-        <div>
-          {/* Reviews Section */}
-          <div className="text-center my-7">
-            {data?.reviews.length === 0 ? (
-              <h1 className="text-2xl font-bold mb-5">
-                No reviews posted yet. Let's post a review
-              </h1>
-            ) : (
-              <h1 className="text-2xl font-bold mb-5">
-                Let's check out reviews
-              </h1>
-            )}
-            <form onSubmit={handlePostReview}>
-              <textarea
-                className="textarea textarea-secondary w-[500px]"
-                name="review"
-                placeholder="Your Review"
-              ></textarea>
-              <br />
-              <input
-                className="btn btn-scondary btn-outline w-24"
-                type="submit"
-                value="Post"
-              />
-            </form>
-            {data?.reviews.map((review, index) => (
-              <h1>
-                {index}. {review}
-              </h1>
-            ))}
-          </div>
-        </div>
+        <BookReviews id={id}></BookReviews>
       </div>
     </>
   );
