@@ -3,13 +3,10 @@ import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import Header from "../../Shared/Header";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { useDispatch } from "react-redux";
-import { IBook, searchBook } from "../../redux/books/booksSlice";
+import { IBook } from "../../redux/books/booksSlice";
 
 const AllBooks = () => {
   const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
-  const dispatch = useAppDispatch();
-  const { books } = useAppSelector((state) => state.book);
   const [searchResult, setSearchResult] = useState<IBook[]>([]);
 
   if (isLoading) {
