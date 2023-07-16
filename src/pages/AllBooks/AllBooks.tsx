@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllBooksQuery } from "../../redux/api/apiSlice";
 import Header from "../../Shared/Header";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { useDispatch } from "react-redux";
-import { searchBook } from "../../redux/books/booksSlice";
+import { IBook, searchBook } from "../../redux/books/booksSlice";
 
 const AllBooks = () => {
   const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
   const dispatch = useAppDispatch();
   const { books } = useAppSelector((state) => state.book);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const searchTerm = e.target.searchTerm.value;
-    const searchResults = data.filter((info) =>
-      info.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    dispatch(searchBook(books));
-  };
+  const [searchResult, setSearchResult] = useState<IBook[]>([]);
 
   if (isLoading) {
     return (
@@ -31,28 +23,34 @@ const AllBooks = () => {
   if (isError) {
     return <div>Error occurred while fetching data.</div>;
   }
+  // console.log(data);
+  const handleSearch = (event: { target: { value: any } }) => {
+    const searchText = event.target.value;
+    const match = data.filter((b: { title: string }) =>
+      b.title.toLowerCase().includes(searchText)
+    );
+    setSearchResult(match);
+  };
+
+  // console.log(searchResult);
 
   return (
     <>
       <Header></Header>
       <h1 className="text-2xl text-center font-bold">Read more and more...</h1>
-      <form onSubmit={handleSearch} className="flex justify-center m-8">
+      <form className="flex justify-center m-8">
         <div className="join">
           <input
-            className="input input-bordered join-item"
+            onChange={handleSearch}
+            className="input input-bordered "
             name="searchTerm"
             placeholder="Search here"
-          />
-          <input
-            className="btn join-item rounded-r-full"
-            type="submit"
-            value="Search"
           />
         </div>
       </form>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 m-8">
-        {data &&
-          data.map((info) => (
+        {searchResult &&
+          searchResult.map((info) => (
             <>
               <div className="card w-96 bg-base-100 shadow-xl">
                 <figure className="px-10 pt-10">

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface IBook {
+export interface IBook {
   email: string;
   title: string;
   author: string;
