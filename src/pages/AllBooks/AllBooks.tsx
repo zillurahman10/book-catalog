@@ -23,7 +23,6 @@ const AllBooks = () => {
   if (isError) {
     return <div>Error occurred while fetching data.</div>;
   }
-  // console.log(data);
   const handleSearch = (event: { target: { value: any } }) => {
     const searchText = event.target.value;
     const match = data.filter((b: { title: string }) =>
